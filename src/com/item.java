@@ -175,17 +175,17 @@ public class item {
 				return "Error while connecting to the database for reading.";
 			}
 			
-			// create a prepared statement
-						String query = "update item set itemName=?, itemPrice=?, itemDesc=?" + "where itemCode=? ";
+			
+						String sql = "update items set itemName=?, itemPrice=?, itemDesc=?" + "where itemCode=? ";
 						
-						PreparedStatement preparedStmt = con.prepareStatement(query);
+						PreparedStatement preparedStmt = con.prepareStatement(sql);
 						
-						// binding values
+						
 						preparedStmt.setString(3, itemName);
 						preparedStmt.setDouble(4, Double.parseDouble(itemPrice));
 						preparedStmt.setString(5, itemDesc);
 						
-						//execute the statement
+					
 						preparedStmt.execute();
 						con.close();
 						
@@ -198,6 +198,31 @@ public class item {
 		return output;
 		
 		
+	}
+	
+	
+  public String deleteItem(String itemCode) {
+		
+		String output = "";
+		
+		Connection con = connect();
+		
+		String query = "delete from items " + "where itemCode=? ";
+		
+		try{
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+
+			preparedStmt.setString(2, itemCode);
+			preparedStmt.executeUpdate();
+			
+			output = "Deleted Successfully!!";
+		}
+		catch (Exception e) {
+			output = "Error while deleting";
+			e.printStackTrace();
+		}
+		
+		return output;
 	}
 	
 	

@@ -26,7 +26,7 @@
 		
 	<form method="post" action="updateItem.jsp">
 	
-	Item code: <input name="itemId" type="text"  ><br>
+	
 	Item code: <input name="itemCode" type="text"   value = "<%= itemCode %>"><br>
 	Item name: <input name="itemName" type="text"   value = "<%= itemName %>" ><br> 
 	Item price: <input name="itemPrice" type="text" value = "<%= itemPrice %>"><br>
@@ -40,6 +40,24 @@
 	<%
 	out.print(session.getAttribute("statusMsg"));
 	%>
+	
+	
+	<%
+
+	if (request.getParameter("itemCode") != null)
+	{
+		item itemObj = new item();
+		
+		String stsMsg = itemObj.updateItem(request.getParameter("itemCode"),
+		request.getParameter("itemName"),
+		request.getParameter("itemPrice"),
+		request.getParameter("itemDesc"));
+		session.setAttribute("statusMsg", stsMsg);
+	}	
+
+
+
+%>
 
 
 	<%
