@@ -4,6 +4,8 @@ import java.sql.*;
 
 
 
+
+
 public class item {
 
 	/**************Testing the connection success*****************************************************/
@@ -120,13 +122,25 @@ public class item {
 				output += "<td>" + itemDesc + "</td>";
 				
 	
-				output += "<td><input name=‘btnUpdate’ "
-						+ " type=‘button’ value=‘Update’></td>"
-						+ "<td><form method=‘post’ action=‘items.jsp’>"
-						+ "<input name=‘btnRemove’ "
-						+ " type=‘submit’ value=‘Remove’>"
-						+ "<input name=‘itemID’ type=‘hidden’ "
-						+ " value=‘" + itemID + "‘>" + "</form></td></tr>";
+				output += "<td><form method='post' action='updateItem.jsp'>"
+						+ "<input name='btnUpdate' "
+						+ " type='submit' value='Update'>"
+						+ "<input name='itemID' type='hidden' "
+						+ " value=' " + itemID + "'>"
+						+ "<input name='itemCode' type='hidden' "
+						+ " value=' " + itemCode + "'>"
+						+ "<input name='itemName' type='hidden' "
+						+ " value=' " + itemName + "'>"
+						+ "<input name='itemPrice' type='hidden' "
+						+ " value=' " + itemPrice + "'>"
+						+ "<input name='itemDesc' type='hidden' "
+						+ " value=' " + itemDesc + "'>"
+						+ "</form></td>"
+						+ "<td><form method='post' action='deleteItem.jsp'>"
+						+ "<input name='btnRemove' "
+						+ " type='submit' value='Remove'>"
+						+ "<input name='itemCode' type='hidden' "
+						+ " value='" + itemCode + "'>" + "</form></td></tr>";
 			}
 			
 			con.close();
@@ -142,6 +156,48 @@ public class item {
 		
 	return output;
 	
+	}
+	
+	
+/************update item method***********************************************************/
+	
+	public String updateItem(String itemCode, String itemName, String itemPrice, String itemDesc)
+	{
+		
+		String output = "";
+		
+		try {
+			
+			Connection con = connect();
+			
+			if (con == null)
+			{
+				return "Error while connecting to the database for reading.";
+			}
+			
+			// create a prepared statement
+						String query = "update item set itemName=?, itemPrice=?, itemDesc=?" + "where itemCode=? ";
+						
+						PreparedStatement preparedStmt = con.prepareStatement(query);
+						
+						// binding values
+						preparedStmt.setString(3, itemName);
+						preparedStmt.setDouble(4, Double.parseDouble(itemPrice));
+						preparedStmt.setString(5, itemDesc);
+						
+						//execute the statement
+						preparedStmt.execute();
+						con.close();
+						
+						output = "Updated successfully";
+			
+		}catch(Exception e) {
+			output = "Error while updating";
+			System.err.println(e.getMessage());
+		}
+		return output;
+		
+		
 	}
 	
 	
