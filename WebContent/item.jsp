@@ -55,9 +55,9 @@
 
 
 	<%
-		item itemObj = new item();
-		//out.print(itemObj.readItems());
-	%>
+   item itemObj = new item();
+   out.print(itemObj.readItems());
+    %>
 
 </body>
 </html>
