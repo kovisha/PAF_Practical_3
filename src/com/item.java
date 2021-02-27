@@ -48,7 +48,7 @@ public class item {
 				return "Error while connecting to the database";
 			}
 	
-			String query = " insert into items(`itemID`,`itemCode`,`itemName`,`itemPrice`,`itemDesc`)"+ " values (?, ?, ?, ?, ?)";
+			String query = " insert into items(`itemId`,`itemCode`,`itemName`,`itemPrice`,`itemDesc`)" + " values (?, ?, ?, ?, ?)";
 			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 	
@@ -138,9 +138,9 @@ public class item {
 						+ "</form></td>"
 						+ "<td><form method='post' action='deleteItem.jsp'>"
 						+ "<input name='btnRemove' "
-						+ " type='submit' value='Remove'>"
-						+ "<input name='itemCode' type='hidden' "
-						+ " value='" + itemCode + "'>" + "</form></td></tr>";
+						+ " type='submit' value='Delete'>"
+						+ "<input name='itemID' type='hidden' "
+						+ " value='" + itemID + "'>" + "</form></td></tr>";
 			}
 			
 			con.close();
@@ -161,7 +161,7 @@ public class item {
 	
 /************update item method***********************************************************/
 	
-	public String updateItem(String itemCode, String itemName, String itemPrice, String itemDesc)
+	public String updateItem(String itemCode, String itemName, String itemPrice, String itemDesc) 
 	{
 		
 		String output = "";
@@ -176,14 +176,14 @@ public class item {
 			}
 			
 			
-						String sql = "update items set itemName=?, itemPrice=?, itemDesc=?" + "where itemCode=? ";
+						String sql = "update items set itemName=?, itemPrice=?, itemDesc=?" + "where itemCode=" + itemCode;
 						
 						PreparedStatement preparedStmt = con.prepareStatement(sql);
 						
 						
-						preparedStmt.setString(3, itemName);
-						preparedStmt.setDouble(4, Double.parseDouble(itemPrice));
-						preparedStmt.setString(5, itemDesc);
+						preparedStmt.setString(1, itemName);
+						preparedStmt.setDouble(2, Double.parseDouble(itemPrice));
+						preparedStmt.setString(3, itemDesc);
 						
 					
 						preparedStmt.execute();
@@ -201,18 +201,19 @@ public class item {
 	}
 	
 	
-  public String deleteItem(String itemCode) {
+  public String deleteItem(Integer itemCode) {
 		
 		String output = "";
 		
 		Connection con = connect();
 		
-		String query = "delete from items " + "where itemCode=? ";
+		String sql = "delete from items " + "where itemId=" +itemCode ;
 		
 		try{
-			PreparedStatement preparedStmt = con.prepareStatement(query);
+			
+			PreparedStatement preparedStmt = con.prepareStatement(sql);
 
-			preparedStmt.setString(2, itemCode);
+		
 			preparedStmt.executeUpdate();
 			
 			output = "Deleted Successfully!!";

@@ -44,7 +44,7 @@
 	
 	<%
 
-	if (request.getParameter("itemCode") != null)
+	if (request.getParameter("itemID") != null)
 	{
 		item itemObj = new item();
 		
@@ -57,7 +57,7 @@
 
 
 
-%>
+	%>
 
 
 	<%
