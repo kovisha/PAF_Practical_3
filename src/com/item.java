@@ -124,7 +124,7 @@ public class item {
 	
 				output += "<td><form method='post' action='updateItem.jsp'>"
 						+ "<input name='btnUpdate' "
-						+ " type='submit' value='Update'>"
+						+ " type='submit' value='Update' class='btn btn-secondary'>"
 						+ "<input name='itemID' type='hidden' "
 						+ " value=' " + itemID + "'>"
 						+ "<input name='itemCode' type='hidden' "
@@ -138,7 +138,7 @@ public class item {
 						+ "</form></td>"
 						+ "<td><form method='post' action='deleteItem.jsp'>"
 						+ "<input name='btnRemove' "
-						+ " type='submit' value='Delete'>"
+						+ " type='submit' value='Delete' class='btn btn-danger'>"
 						+ "<input name='itemID' type='hidden' "
 						+ " value='" + itemID + "'>" + "</form></td></tr>";
 			}
